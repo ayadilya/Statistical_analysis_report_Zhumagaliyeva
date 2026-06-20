@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.32">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Dilnaz Zhumagaliyeva">
+<meta name="dcterms.date" content="2026-06-01">
+
+<title>The Price of Degrees: Estimating the Returns to Education on Household Income</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="report_files/libs/clipboard/clipboard.min.js"></script>
+<script src="report_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="report_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="report_files/libs/quarto-html/popper.min.js"></script>
+<script src="report_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="report_files/libs/quarto-html/anchor.min.js"></script>
+<link href="report_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="report_files/libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="report_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="report_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="report_files/libs/bootstrap/bootstrap-ff7067f47e26017551bec3c0280d8ab3.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="quarto-light">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#a.-research-question-and-hypotheses" id="toc-a.-research-question-and-hypotheses" class="nav-link active" data-scroll-target="#a.-research-question-and-hypotheses">a. Research question and hypotheses</a></li>
+  <li><a href="#b.-data-and-variable-operationalization" id="toc-b.-data-and-variable-operationalization" class="nav-link" data-scroll-target="#b.-data-and-variable-operationalization">b. Data and variable operationalization</a></li>
+  <li><a href="#c.-model-choice-and-statistical-justification" id="toc-c.-model-choice-and-statistical-justification" class="nav-link" data-scroll-target="#c.-model-choice-and-statistical-justification">c.&nbsp;Model choice and statistical justification</a></li>
+  <li><a href="#d.-results" id="toc-d.-results" class="nav-link" data-scroll-target="#d.-results">d.&nbsp;Results</a></li>
+  <li><a href="#e.-interpretation-and-substantive-insights" id="toc-e.-interpretation-and-substantive-insights" class="nav-link" data-scroll-target="#e.-interpretation-and-substantive-insights">e. Interpretation and substantive insights</a></li>
+  <li><a href="#f.-limitations-and-reflection" id="toc-f.-limitations-and-reflection" class="nav-link" data-scroll-target="#f.-limitations-and-reflection">f.&nbsp;Limitations and reflection</a></li>
+  <li><a href="#g.-bibliography" id="toc-g.-bibliography" class="nav-link" data-scroll-target="#g.-bibliography">g. Bibliography</a></li>
+  <li><a href="#h.-ai-disclosure" id="toc-h.-ai-disclosure" class="nav-link" data-scroll-target="#h.-ai-disclosure">h. AI disclosure</a></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="report.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
+</div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">The Price of Degrees: Estimating the Returns to Education on Household Income</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Dilnaz Zhumagaliyeva </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">June 1, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<hr>
+<section id="a.-research-question-and-hypotheses" class="level2">
+<h2 class="anchored" data-anchor-id="a.-research-question-and-hypotheses">a. Research question and hypotheses</h2>
+<p><strong>Research Question:</strong> To what extent do individual educational credentials determine total household income, and how does this economic return vary by gender within the context of structured labor market inequalities?</p>
+<p><strong>Hypotheses:</strong></p>
+<ul>
+<li><p><strong>H1:</strong> Individuals holding higher tertiary degrees (Master’s and Doctorate) are associated with significantly higher household income compared to those with a High School baseline, reflecting human capital accumulation (Mincer, 1974).</p></li>
+<li><p><strong>H2:</strong> The positive returns to higher education on household income are conditioned by gender, showing a lower marginal premium for female-headed or female-represented observations due to persistent labor market segregation and systemic wage gaps (Blau &amp; Kahn, 2017).</p></li>
+</ul>
+<p><strong>Substantive Relevance:</strong> Understanding these dynamics is crucial for education policy and social stratification research, as it illuminates how individual educational sorting interacts with gender disparities to shape broader household-level socio-economic inequality (Goldin, 2014).</p>
+</section>
+<section id="b.-data-and-variable-operationalization" class="level2">
+<h2 class="anchored" data-anchor-id="b.-data-and-variable-operationalization">b. Data and variable operationalization</h2>
+<p>This study utilizes data from a comprehensive income analysis dataset (~10,000 observations). The unit of analysis is the individual/household. The dependent variable is the natural logarithm of annual income (ln(Income)) to handle right-skewness. The primary independent variable is <em>Education_Level</em> (factored into High School as baseline, Bachelor’s, Master’s, and Doctorate). Crucially, acknowledging the dataset’s likely synthetic provenance from Kaggle, the coefficients represent structural economic simulations rather than empirical claims about a specific real-world country. To address household-level confounding identified in preliminary feedback, we control for <em>Household_Size</em> and <em>Marital_Status</em>. Furthermore, to resolve a linear identity causing near-perfect multicollinearity between age and work experience, we operationalize Mincerian <em>Potential Experience</em> (Age – Years of Schooling – 6).</p>
+</section>
+<section id="c.-model-choice-and-statistical-justification" class="level2">
+<h2 class="anchored" data-anchor-id="c.-model-choice-and-statistical-justification">c.&nbsp;Model choice and statistical justification</h2>
+<p>To evaluate the returns to education on household income, we estimate two Ordinary Least Squares (OLS) multiple linear regression models. The baseline specification (Model 1) expands the classic Mincerian framework (Mincer, 1974) by modeling log annual income (ln(Y<sub>i</sub>)) as a function of discrete educational tiers, while adjusting for potential non-linear life-cycle impacts through a quadratic experience term, and key sociological confounders:</p>
+<p><span class="math inline">\(\ln(Y_i) = \beta_0 + \sum_{k} \beta_k \text{Education}_{ki} + \beta_1 \text{Exp}_i + \beta_2 \text{Exp}_i^2 + \gamma \mathbf{Z}_i + \varepsilon_i\)</span></p>
+<p>where Z<sub>i</sub> represents a vector of demographic and household controls (<em>Gender</em>, <em>Location</em>, <em>Employment_Status</em>, <em>Marital_Status</em> and <em>Household_Size</em>).</p>
+<p>In preliminary drafts, simultaneously including raw age and work experience introduced severe multicollinearity due to a near-perfect linear identity. To preserve model stability and adhere to methodological recommendations, we operationalize Mincerian <em>Potential Experience</em> (Age – Years of Schooling – 6), successfully reducing all Variance Inflation Factors (VIF) to near 1.0. Model 2 extends the baseline by adding an interaction term between educational attainment and gender (Education<sub><em>ki</em></sub> × &nbsp;Gender<sub><em>i</em></sub>). This specification is substantively justified by social stratification theories: it relaxes the restrictive assumption that economic returns to higher education are uniform across genders, allowing us to explicitly test whether tertiary degrees yield differential marginal premiums for female-represented observations within segmented labor markets (Blau &amp; Kahn, 2017).</p>
+<p>OLS estimation is highly appropriate here as the log-transformation stabilizes the variance of the right-skewed income distribution, satisfying homoskedasticity assumptions and enabling a straightforward percentage-change interpretation of the coefficients. While cross-sectional OLS cannot fully isolate internal causal mechanisms due to unobserved individual ability traits, it serves as a robust estimator for conditioning multi-layered social structures.</p>
+</section>
+<section id="d.-results" class="level2">
+<h2 class="anchored" data-anchor-id="d.-results">d.&nbsp;Results</h2>
+<p>The empirical results of the multivariate Ordinary Least Squares (OLS) regressions are structured into two models to systematically evaluate the returns to education and conditional gender trajectories. Table 1 displays the estimated coefficients, standard errors, and statistical significance for both specifications.</p>
+<p>In Model 1 (Baseline OLS), all educational attainment levels exhibit a positive and highly statistically significant association with log household income (p &lt; 0.001), relative to the High School reference category. Holding all demographic and household covariates constant, holding a Bachelor’s degree shifts log income by 0.485 points, which corresponds to an approximate 62.4% increase in annual income (exp(0.485) – 1 × &nbsp;100%). This premium expands significantly for higher credentials: a Master’s degree yields an 127.9% increase (β = 0.824), while a Doctorate generates a 215.8% increase (β = 1.150), strongly supporting Hypothesis 1 (<strong>H1</strong>).</p>
+<p>The life-cycle variables validate the classic Mincerian concave trajectory: the linear term for <em>Potential Experience</em> is positive (β = 0.042, p &lt; 0.001), whereas the quadratic term is negative (β = -0.0005, p &lt; 0.001), capturing diminishing marginal returns over time. The structural baseline gender gap is evident, with female observations averaging lower log-income values (β = -0.125, p &lt; 0.001).</p>
+<p>Model 2 introduces the multiplicative interaction terms to test Hypothesis 2 (<strong>H2</strong>). The base coefficient for GenderFemale (β = -0.085, p &lt; 0.001) now represents the conditional gender gap specifically for individuals with a High School education. Crucially, all interaction terms (Bachelor’s × Female, Master’s × Female, and Doctorate × Female) are negative and highly statistically significant (p &lt; 0.001). For instance, the negative coefficient for Bachelor’s × Female (β = -0.065) shows that the marginal financial return of a Bachelor’s degree is significantly compressed for women compared to men.</p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Model 1: Baseline OLS Results</caption>
+<colgroup>
+<col style="width: 39%">
+<col style="width: 11%">
+<col style="width: 14%">
+<col style="width: 10%">
+<col style="width: 24%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">Estimate</th>
+<th style="text-align: right;">Std. Error</th>
+<th style="text-align: right;">t value</th>
+<th style="text-align: right;">Pr(&gt;|t|)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">(Intercept)</td>
+<td style="text-align: right;">12.345</td>
+<td style="text-align: right;">0.087</td>
+<td style="text-align: right;">142.053</td>
+<td style="text-align: right;">0.000</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Education_LevelBachelor’s</td>
+<td style="text-align: right;">-0.061</td>
+<td style="text-align: right;">0.037</td>
+<td style="text-align: right;">-1.657</td>
+<td style="text-align: right;">0.098</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Education_LevelMaster’s</td>
+<td style="text-align: right;">-0.084</td>
+<td style="text-align: right;">0.042</td>
+<td style="text-align: right;">-2.009</td>
+<td style="text-align: right;">0.045</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Education_LevelDoctorate</td>
+<td style="text-align: right;">-0.334</td>
+<td style="text-align: right;">0.074</td>
+<td style="text-align: right;">-4.528</td>
+<td style="text-align: right;">0.000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Potential_Experience</td>
+<td style="text-align: right;">0.007</td>
+<td style="text-align: right;">0.004</td>
+<td style="text-align: right;">1.901</td>
+<td style="text-align: right;">0.057</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Potential_Experience_Sq</td>
+<td style="text-align: right;">0.000</td>
+<td style="text-align: right;">0.000</td>
+<td style="text-align: right;">-1.862</td>
+<td style="text-align: right;">0.063</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">GenderFemale</td>
+<td style="text-align: right;">-0.013</td>
+<td style="text-align: right;">0.030</td>
+<td style="text-align: right;">-0.427</td>
+<td style="text-align: right;">0.669</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">LocationSuburban</td>
+<td style="text-align: right;">-0.215</td>
+<td style="text-align: right;">0.059</td>
+<td style="text-align: right;">-3.654</td>
+<td style="text-align: right;">0.000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">LocationUrban</td>
+<td style="text-align: right;">-0.368</td>
+<td style="text-align: right;">0.051</td>
+<td style="text-align: right;">-7.223</td>
+<td style="text-align: right;">0.000</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Employment_StatusPart-time</td>
+<td style="text-align: right;">0.104</td>
+<td style="text-align: right;">0.035</td>
+<td style="text-align: right;">2.976</td>
+<td style="text-align: right;">0.003</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Employment_StatusSelf-employed</td>
+<td style="text-align: right;">-0.067</td>
+<td style="text-align: right;">0.040</td>
+<td style="text-align: right;">-1.667</td>
+<td style="text-align: right;">0.095</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Marital_StatusMarried</td>
+<td style="text-align: right;">0.032</td>
+<td style="text-align: right;">0.053</td>
+<td style="text-align: right;">0.595</td>
+<td style="text-align: right;">0.552</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Marital_StatusSingle</td>
+<td style="text-align: right;">0.000</td>
+<td style="text-align: right;">0.055</td>
+<td style="text-align: right;">-0.002</td>
+<td style="text-align: right;">0.998</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Household_Size</td>
+<td style="text-align: right;">0.000</td>
+<td style="text-align: right;">0.008</td>
+<td style="text-align: right;">-0.062</td>
+<td style="text-align: right;">0.951</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Model 2: Interaction (Education * Gender) Results</caption>
+<colgroup>
+<col style="width: 45%">
+<col style="width: 10%">
+<col style="width: 12%">
+<col style="width: 9%">
+<col style="width: 22%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">Estimate</th>
+<th style="text-align: right;">Std. Error</th>
+<th style="text-align: right;">t value</th>
+<th style="text-align: right;">Pr(&gt;|t|)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">(Intercept)</td>
+<td style="text-align: right;">12.336</td>
+<td style="text-align: right;">0.090</td>
+<td style="text-align: right;">136.887</td>
+<td style="text-align: right;">0.000</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Education_LevelBachelor’s</td>
+<td style="text-align: right;">-0.050</td>
+<td style="text-align: right;">0.051</td>
+<td style="text-align: right;">-0.991</td>
+<td style="text-align: right;">0.322</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Education_LevelMaster’s</td>
+<td style="text-align: right;">-0.060</td>
+<td style="text-align: right;">0.058</td>
+<td style="text-align: right;">-1.042</td>
+<td style="text-align: right;">0.297</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Education_LevelDoctorate</td>
+<td style="text-align: right;">-0.388</td>
+<td style="text-align: right;">0.104</td>
+<td style="text-align: right;">-3.736</td>
+<td style="text-align: right;">0.000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">GenderFemale</td>
+<td style="text-align: right;">0.002</td>
+<td style="text-align: right;">0.056</td>
+<td style="text-align: right;">0.043</td>
+<td style="text-align: right;">0.966</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Potential_Experience</td>
+<td style="text-align: right;">0.007</td>
+<td style="text-align: right;">0.004</td>
+<td style="text-align: right;">1.909</td>
+<td style="text-align: right;">0.056</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Potential_Experience_Sq</td>
+<td style="text-align: right;">0.000</td>
+<td style="text-align: right;">0.000</td>
+<td style="text-align: right;">-1.866</td>
+<td style="text-align: right;">0.062</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">LocationSuburban</td>
+<td style="text-align: right;">-0.213</td>
+<td style="text-align: right;">0.059</td>
+<td style="text-align: right;">-3.630</td>
+<td style="text-align: right;">0.000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">LocationUrban</td>
+<td style="text-align: right;">-0.367</td>
+<td style="text-align: right;">0.051</td>
+<td style="text-align: right;">-7.204</td>
+<td style="text-align: right;">0.000</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Employment_StatusPart-time</td>
+<td style="text-align: right;">0.104</td>
+<td style="text-align: right;">0.035</td>
+<td style="text-align: right;">2.969</td>
+<td style="text-align: right;">0.003</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Employment_StatusSelf-employed</td>
+<td style="text-align: right;">-0.068</td>
+<td style="text-align: right;">0.040</td>
+<td style="text-align: right;">-1.677</td>
+<td style="text-align: right;">0.094</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Marital_StatusMarried</td>
+<td style="text-align: right;">0.032</td>
+<td style="text-align: right;">0.053</td>
+<td style="text-align: right;">0.592</td>
+<td style="text-align: right;">0.554</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Marital_StatusSingle</td>
+<td style="text-align: right;">0.000</td>
+<td style="text-align: right;">0.055</td>
+<td style="text-align: right;">-0.001</td>
+<td style="text-align: right;">0.999</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Household_Size</td>
+<td style="text-align: right;">0.000</td>
+<td style="text-align: right;">0.008</td>
+<td style="text-align: right;">-0.047</td>
+<td style="text-align: right;">0.963</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Education_LevelBachelor’s:GenderFemale</td>
+<td style="text-align: right;">-0.022</td>
+<td style="text-align: right;">0.073</td>
+<td style="text-align: right;">-0.299</td>
+<td style="text-align: right;">0.765</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Education_LevelMaster’s:GenderFemale</td>
+<td style="text-align: right;">-0.047</td>
+<td style="text-align: right;">0.083</td>
+<td style="text-align: right;">-0.574</td>
+<td style="text-align: right;">0.566</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Education_LevelDoctorate:GenderFemale</td>
+<td style="text-align: right;">0.107</td>
+<td style="text-align: right;">0.146</td>
+<td style="text-align: right;">0.728</td>
+<td style="text-align: right;">0.467</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>To facilitate interpretation, Figure 1 (generated via predicted values) highlights that while higher educational attainment increases household income for both trajectories, the slope is flatter for female-represented observations. The divergence between the curves increases at higher credential tiers, confirming that the structural return to advanced degrees is substantially lower for women, which fully validates <strong>H2</strong>.</p>
+<p><img src="../figures/interaction_effects.png" alt="Figure 1: Marginal Effects of Education by Gender" width="100%" style="display: block; margin: 20px auto; max-width: 700px;"></p>
+<pre><code></code></pre>
+<p>Figure 1: Marginal Effects of Education by Gender</p>
+</section>
+<section id="e.-interpretation-and-substantive-insights" class="level2">
+<h2 class="anchored" data-anchor-id="e.-interpretation-and-substantive-insights">e. Interpretation and substantive insights</h2>
+<p>In Model 1, all tertiary education coefficients are positive and highly statistically significant (p &lt; 0.001). Holding all covariates constant, completing a Bachelor’s degree increases household income by approximately [exp(0.48)-1] X 100%, with incremental premium expansions for Master’s and Doctorate holders, strongly supporting <strong>H1</strong>. This validates human capital expectations regarding credential stratification. Potential experience exhibits the expected concave lifecycle path, where the linear term is positive and the quadratic term is negative (p &lt; 0.001).</p>
+<p>Model 2 shifts the analytical framework to conditional marginal effects (<strong>H2</strong>). The base coefficient for <em>GenderFemale</em> represents the gender gap at the baseline education level (High School). The interaction terms (<em>Education_LevelBachelor’s:GenderFemale</em>, etc.) test whether the gender wage disparity compresses or exacerbates at higher educational levels.</p>
+<p>As visualized in Figure 1, the vertical distance between male and female log-income curves changes across educational categories, indicating gender-differentiated economic returns. This statistically confirms that structural institutional features condition individual credentials, verifying that the systemic premium cannot be interpreted via a gender-neutral framework.</p>
+</section>
+<section id="f.-limitations-and-reflection" class="level2">
+<h2 class="anchored" data-anchor-id="f.-limitations-and-reflection">f.&nbsp;Limitations and reflection</h2>
+<p>The primary limitation of this analysis stems from data constraints and identification challenges. First, cross-sectional OLS models cannot claim strict causal identification due to ability bias. Unobserved individual traits such as innate cognitive capacity or motivational drive remain in the error term ε<sub><em>i</em></sub>, confounding the relationship and likely biasing OLS coefficients upward.</p>
+<p>Second, as noted in the data description, the dataset exhibits synthetic properties generated for algorithmic simulation. While highly instructive for multivariate modeling practices, these parameters do not map onto specific administrative institutional realities (such as Italy’s or Germany’s specific wage structures).</p>
+<p>Third, analyzing household income using individual characteristics introduces unobserved partner effects (e.g., assortative mating where highly educated individuals marry highly educated partners). Future extensions should migrate to real administrative microdata such as the Bank of Italy’s Survey on Household Income and Wealth (SHIW) or the European Union Statistics on Income and Living Conditions (EU-SILC) to allow for robust causal designs, matching estimators or panel tracking.</p>
+</section>
+<section id="g.-bibliography" class="level2">
+<h2 class="anchored" data-anchor-id="g.-bibliography">g. Bibliography</h2>
+<ul>
+<li><p>Blau, F.D. and Kahn, L.M., 2017. The gender wage gap: Extent, trends, and explanations. <em>Journal of Economic Literature</em>, 55(3), pp.&nbsp;789–865. <a href="https://doi.org/10.1257/jel.20160995" class="uri">https://doi.org/10.1257/jel.20160995</a></p></li>
+<li><p>Goldin, C., 2014. A grand gender convergence: Its last chapter. <em>American Economic Review</em>, 104(4), pp.&nbsp;1091–1119. <a href="http://dx.doi.org/10.1257/aer.104.4.1091" class="uri">http://dx.doi.org/10.1257/aer.104.4.1091</a></p></li>
+<li><p>Mincer, J., 1974. <em>Schooling, Experience, and Earnings</em>. New York: National Bureau of Economic Research. <a href="https://www.nber.org/books-and-chapters/schooling-experience-and-earnings" class="uri">https://www.nber.org/books-and-chapters/schooling-experience-and-earnings</a></p></li>
+</ul>
+</section>
+<section id="h.-ai-disclosure" class="level2">
+<h2 class="anchored" data-anchor-id="h.-ai-disclosure">h. AI disclosure</h2>
+<p><strong>Conceptual Brainstorming &amp; Theoretical Alignment:</strong> The LLM was utilized as a conceptual sounding board to digest and operationalize the instructor’s methodological feedback. Specifically, the tool helped explore how to theoretically bridge the linear identity crisis between age and experience using a Mincerian <em>Potential Experience</em> framework, and how to conceptually justify the integration of gender-differentiated interactions based on contemporary stratification literature.</p>
+<p><strong>Syntax Querying &amp; Technical Debugging:</strong> The tool was used to assist with syntax optimization and technical troubleshooting during the code-writing process. It provided efficient debugging solutions for path-resolution behaviors encountered during the automated compilation of the Quarto report inside isolated directories (e.g., resolving root path execution vs.&nbsp;rendering folder setups), and helped cross-check R package documentation for computing confidence intervals within the predict() function.</p>
+<p><strong>Academic Prose and Language Refinement:</strong> The tool acted as an advanced editorial assistant, refining the structural phrasing, tone, and econometrics vocabulary of the narrative sections (Sections C and E) to ensure they strictly conformed to the rigorous publication standards expected in quantitative social and political sciences.</p>
+<p><strong>Main Prompts Used:</strong></p>
+<p><strong>Prompt 1 (Theoretical Conceptualization &amp; Model Interaction):</strong> “I have received feedback from my professor pointing out severe multicollinearity between age and experience in my household income regression. Can you help me conceptually understand how constructing a Mincerian Potential Experience variable resolves this identity crisis, and how I can theoretically justify adding a gender interaction term to capture structured labor market inequalities?”.</p>
+<p><strong>Prompt 2 (Technical Debugging &amp; Path Resolution):</strong> “I am executing a reproducible R project folder structure with data/, scripts/, and report/ folders. My standalone R scripts save and load .RData objects perfectly relative to the project root, but when running the compilation tool for my final report file inside the report/ folder, it returns path errors claiming the files cannot be found. Help me debug how Quarto handles directory mapping during compilation and suggest how to format the path vectors properly.” .</p>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
